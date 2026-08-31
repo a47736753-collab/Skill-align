@@ -101,7 +101,7 @@ export default function MySkills() {
         <CardHeader>
           <CardTitle>Your College & Branch</CardTitle>
           <CardDescription>
-            Select your college and branch so we can tailor comparisons for you.
+            Select your college and branch so Skill Align can tailor comparisons for you.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -167,7 +167,7 @@ export default function MySkills() {
             <div>
               <CardTitle>Your Skills</CardTitle>
               <CardDescription>
-                Click skills to add or remove them from your profile.{" "}
+                Click to add or remove skills from your profile.{" "}
                 <span className="font-medium text-foreground">
                   {selectedSkills.size} selected
                 </span>

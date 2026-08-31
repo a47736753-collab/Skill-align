@@ -167,7 +167,7 @@ export default function CareerGuide() {
           {userSkillsEmpty && (
             <div className="flex items-center gap-2 rounded-lg bg-yellow-400/10 p-3 text-sm text-yellow-700 dark:text-yellow-400">
               <AlertCircle className="h-4 w-4 shrink-0" />
-              Add your skills in the "My Skills" tab first.
+              Add your skills in the My Skills tab first to use the career guide.
             </div>
           )}
 
@@ -292,7 +292,7 @@ export default function CareerGuide() {
             <div className="rounded-xl border border-dashed border-border py-10 text-center">
               <TrendingUp className="mx-auto h-8 w-8 text-muted-foreground/40" />
               <p className="mt-2 text-sm text-muted-foreground">
-                Add skills in "My Skills" to see matching roles.
+                Add skills in the My Skills tab to see matching roles.
               </p>
             </div>
           ) : matchingRoles && matchingRoles.length > 0 ? (
@@ -362,7 +362,7 @@ export default function CareerGuide() {
           ) : (
             <div className="rounded-xl border border-dashed border-border py-10 text-center">
               <p className="text-sm text-muted-foreground">
-                No matching roles found. Try adding more skills.
+                No matching roles found. Try adding more skills to broaden your matches.
               </p>
             </div>
           )}

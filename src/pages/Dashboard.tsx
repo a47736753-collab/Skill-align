@@ -2,18 +2,20 @@ import { api } from "@/convex/_generated/api";
 import { useAuth } from "@/hooks/use-auth";
 import { useMutation, useQuery } from "convex/react";
 import { Loader2, LogOut } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import CollegeCompare from "@/components/dashboard/CollegeCompare";
 import CompanyCompare from "@/components/dashboard/CompanyCompare";
 import CareerGuide from "@/components/dashboard/CareerGuide";
 import MySkills from "@/components/dashboard/MySkills";
+import Catalog from "@/components/dashboard/Catalog";
 
-type Tab = "skills" | "college" | "company" | "career";
+type Tab = "skills" | "catalog" | "college" | "company" | "career";
 
 const tabs: { id: Tab; label: string }[] = [
   { id: "skills", label: "My Skills" },
+  { id: "catalog", label: "Catalog" },
   { id: "college", label: "Compare Colleges" },
   { id: "company", label: "Compare Companies" },
   { id: "career", label: "Career Guide" },
@@ -31,7 +33,7 @@ export default function Dashboard() {
       seedAll()
         .then((result) => {
           if (result === "seeded") {
-            toast.success("Sample data loaded — colleges, companies & roles ready");
+            toast.success("Sample data loaded — colleges, companies, and roles are ready");
           }
         })
         .catch(() => toast.error("Failed to load sample data"));
@@ -43,18 +45,24 @@ export default function Dashboard() {
     navigate("/");
   };
 
+  const navigateToCompare = useCallback(
+    (type: "college" | "company") => setActiveTab(type),
+    []
+  );
+  const navigateToCareer = useCallback(() => setActiveTab("career"), []);
+
   return (
     <main className="min-h-screen bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[oklch(0.70_0.18_165)]">
-              <span className="text-sm font-bold text-[oklch(0.15_0.04_270)]">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+              <span className="text-sm font-bold text-primary-foreground">
                 S
               </span>
             </div>
-            <span className="text-base font-semibold text-foreground">
+            <span className="text-sm font-semibold tracking-tight">
               Skill Align
             </span>
           </div>
@@ -75,8 +83,8 @@ export default function Dashboard() {
       </header>
 
       {/* Tabs */}
-      <div className="border-b border-border bg-muted/30">
-        <div className="mx-auto max-w-7xl px-6">
+      <div className="border-b border-border/60 bg-muted/20">
+        <div className="mx-auto max-w-6xl px-6">
           <nav className="flex gap-1 overflow-x-auto py-1" role="tablist">
             {tabs.map((tab) => (
               <button
@@ -84,7 +92,7 @@ export default function Dashboard() {
                 role="tab"
                 aria-selected={activeTab === tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`whitespace-nowrap rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
+                className={`whitespace-nowrap rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
                   activeTab === tab.id
                     ? "bg-background text-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
@@ -98,7 +106,7 @@ export default function Dashboard() {
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-7xl px-6 py-8">
+      <div className="mx-auto max-w-6xl px-6 py-8">
         {isSeeded === undefined ? (
           <div className="flex items-center justify-center py-20">
             <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
@@ -106,6 +114,12 @@ export default function Dashboard() {
         ) : (
           <>
             {activeTab === "skills" && <MySkills />}
+            {activeTab === "catalog" && (
+              <Catalog
+                onNavigateToCompare={navigateToCompare}
+                onNavigateToCareer={navigateToCareer}
+              />
+            )}
             {activeTab === "college" && <CollegeCompare />}
             {activeTab === "company" && <CompanyCompare />}
             {activeTab === "career" && <CareerGuide />}

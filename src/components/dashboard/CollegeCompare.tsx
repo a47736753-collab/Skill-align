@@ -292,7 +292,7 @@ export default function CollegeCompare() {
         <div className="rounded-2xl border border-dashed border-border py-16 text-center">
           <GitCompareArrows className="mx-auto h-10 w-10 text-muted-foreground/40" />
           <p className="mt-3 text-sm text-muted-foreground">
-            Select two colleges and branches above to compare their skill exposure.
+            Select two colleges and branches to compare their skill exposure side by side.
           </p>
         </div>
       )}

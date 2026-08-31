@@ -308,7 +308,7 @@ export default function CompanyCompare() {
         <div className="rounded-2xl border border-dashed border-border py-16 text-center">
           <Building2 className="mx-auto h-10 w-10 text-muted-foreground/40" />
           <p className="mt-3 text-sm text-muted-foreground">
-            Select two companies and roles above to compare their requirements.
+            Select two companies and roles to compare their requirements side by side.
           </p>
         </div>
       )}
