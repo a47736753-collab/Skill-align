@@ -217,7 +217,7 @@ export default function MySkills() {
                   {cat}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
-                  {skills.map((s) => {
+                  {(skills as string[]).map((s: string) => {
                     const active = selectedSkills.has(s);
                     return (
                       <Badge

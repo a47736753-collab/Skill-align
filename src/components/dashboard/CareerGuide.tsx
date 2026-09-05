@@ -74,12 +74,12 @@ export default function CareerGuide() {
 
   const skillGap = useMemo(() => {
     if (!targetRole || !profile) return null;
-    const userSet = new Set(profile.skills.map((s) => s.toLowerCase()));
-    const matched = targetRole.requiredSkills.filter((s) =>
+    const userSet = new Set(profile.skills.map((s: string) => s.toLowerCase()));
+    const matched = targetRole.requiredSkills.filter((s: string) =>
       userSet.has(s.toLowerCase())
     );
     const missing = targetRole.requiredSkills.filter(
-      (s) => !userSet.has(s.toLowerCase())
+      (s: string) => !userSet.has(s.toLowerCase())
     );
     const matchPercent =
       targetRole.requiredSkills.length > 0
@@ -200,7 +200,7 @@ export default function CareerGuide() {
                   Already Matched ({skillGap.matched.length})
                 </p>
                 <div className="flex flex-wrap gap-1.5">
-                  {skillGap.matched.map((s) => (
+                  {skillGap.matched.map((s: string) => (
                     <Badge
                       key={s}
                       className="bg-green-400/15 text-green-700 dark:text-green-400"
@@ -218,7 +218,7 @@ export default function CareerGuide() {
                   Missing — Learn Next ({skillGap.missing.length})
                 </p>
                 <div className="flex flex-wrap gap-1.5">
-                  {skillGap.missing.map((s) => (
+                  {skillGap.missing.map((s: string) => (
                     <Badge
                       key={s}
                       className="bg-red-400/15 text-red-700 dark:text-red-400"
@@ -310,7 +310,7 @@ export default function CareerGuide() {
                       {r.companyName} — {r.location}
                     </p>
                     <div className="mt-2 flex flex-wrap gap-1">
-                      {r.matchedSkills.slice(0, 5).map((s) => (
+                      {r.matchedSkills.slice(0, 5).map((s: string) => (
                         <Badge
                           key={s}
                           className="bg-green-400/15 text-green-700 dark:text-green-400 text-xs"
@@ -318,7 +318,7 @@ export default function CareerGuide() {
                           {s}
                         </Badge>
                       ))}
-                      {r.missingSkills.slice(0, 3).map((s) => (
+                      {r.missingSkills.slice(0, 3).map((s: string) => (
                         <Badge
                           key={s}
                           className="bg-red-400/10 text-red-500 dark:text-red-400 text-xs"

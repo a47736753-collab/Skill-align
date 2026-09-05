@@ -82,7 +82,7 @@ export default function Catalog({ onNavigateToCompare, onNavigateToCareer }: Cat
 
   // Role match with user skills
   const userSkillSet = useMemo(
-    () => new Set((profile?.skills ?? []).map((s) => s.toLowerCase())),
+    () => new Set((profile?.skills ?? []).map((s: string) => s.toLowerCase())),
     [profile]
   );
 
@@ -324,7 +324,7 @@ export default function Catalog({ onNavigateToCompare, onNavigateToCareer }: Cat
                       </span>
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1">
-                      {b.skills.map((s) => {
+                      {b.skills.map((s: string) => {
                         const has = userSkillSet.has(s.toLowerCase());
                         return (
                           <Badge
@@ -399,7 +399,7 @@ export default function Catalog({ onNavigateToCompare, onNavigateToCareer }: Cat
                         {r.location}
                       </div>
                       <div className="mt-2 flex flex-wrap gap-1">
-                        {r.requiredSkills.map((s) => {
+                        {r.requiredSkills.map((s: string) => {
                           const has = userSkillSet.has(s.toLowerCase());
                           return (
                             <Badge
@@ -475,7 +475,7 @@ export default function Catalog({ onNavigateToCompare, onNavigateToCareer }: Cat
                     Required Skills
                   </p>
                   <div className="flex flex-wrap gap-1.5">
-                    {detailRole.requiredSkills.map((s) => {
+                    {detailRole.requiredSkills.map((s: string) => {
                       const has = userSkillSet.has(s.toLowerCase());
                       return (
                         <Badge

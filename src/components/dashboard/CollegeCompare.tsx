@@ -46,8 +46,8 @@ export default function CollegeCompare() {
 
   const comparison = useMemo(() => {
     if (!branch1 || !branch2) return null;
-    const set1 = new Set(branch1.skills.map((s) => s.toLowerCase()));
-    const set2 = new Set(branch2.skills.map((s) => s.toLowerCase()));
+    const set1 = new Set(branch1.skills.map((s: string) => s.toLowerCase()));
+    const set2 = new Set(branch2.skills.map((s: string) => s.toLowerCase()));
     const allSkills = new Set([...set1, ...set2]);
 
     const common: string[] = [];
@@ -58,8 +58,8 @@ export default function CollegeCompare() {
       const in1 = set1.has(skill);
       const in2 = set2.has(skill);
       const original =
-        branch1.skills.find((s) => s.toLowerCase() === skill) ||
-        branch2.skills.find((s) => s.toLowerCase() === skill) ||
+        branch1.skills.find((s: string) => s.toLowerCase() === skill) ||
+        branch2.skills.find((s: string) => s.toLowerCase() === skill) ||
         skill;
       if (in1 && in2) common.push(original);
       else if (in1) only1.push(original);
@@ -142,7 +142,7 @@ export default function CollegeCompare() {
             </Select>
             {branch1 && (
               <div className="flex flex-wrap gap-1 pt-1">
-                {branch1.skills.map((s) => (
+                {branch1.skills.map((s: string) => (
                   <Badge key={s} variant="secondary" className="text-xs">
                     {s}
                   </Badge>
@@ -196,7 +196,7 @@ export default function CollegeCompare() {
             </Select>
             {branch2 && (
               <div className="flex flex-wrap gap-1 pt-1">
-                {branch2.skills.map((s) => (
+                {branch2.skills.map((s: string) => (
                   <Badge key={s} variant="secondary" className="text-xs">
                     {s}
                   </Badge>

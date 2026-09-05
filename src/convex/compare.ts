@@ -61,11 +61,11 @@ export const findMatchingRoles = query({
     const matches = await Promise.all(
       roles.map(async (role) => {
         const company = await ctx.db.get(role.companyId);
-        const matchedSkills = role.requiredSkills.filter((s) =>
+        const matchedSkills = role.requiredSkills.filter((s: string) =>
           userSet.has(s.toLowerCase()),
         );
         const missingSkills = role.requiredSkills.filter(
-          (s) => !userSet.has(s.toLowerCase()),
+          (s: string) => !userSet.has(s.toLowerCase()),
         );
         const matchPercent =
           role.requiredSkills.length > 0

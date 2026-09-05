@@ -46,8 +46,8 @@ export default function CompanyCompare() {
 
   const comparison = useMemo(() => {
     if (!role1 || !role2) return null;
-    const set1 = new Set(role1.requiredSkills.map((s) => s.toLowerCase()));
-    const set2 = new Set(role2.requiredSkills.map((s) => s.toLowerCase()));
+    const set1 = new Set(role1.requiredSkills.map((s: string) => s.toLowerCase()));
+    const set2 = new Set(role2.requiredSkills.map((s: string) => s.toLowerCase()));
     const allSkills = new Set([...set1, ...set2]);
 
     const common: string[] = [];
@@ -58,8 +58,8 @@ export default function CompanyCompare() {
       const in1 = set1.has(skill);
       const in2 = set2.has(skill);
       const original =
-        role1.requiredSkills.find((s) => s.toLowerCase() === skill) ||
-        role2.requiredSkills.find((s) => s.toLowerCase() === skill) ||
+        role1.requiredSkills.find((s: string) => s.toLowerCase() === skill) ||
+        role2.requiredSkills.find((s: string) => s.toLowerCase() === skill) ||
         skill;
       if (in1 && in2) common.push(original);
       else if (in1) only1.push(original);
@@ -131,7 +131,7 @@ export default function CompanyCompare() {
             </Select>
             {role1 && (
               <div className="flex flex-wrap gap-1 pt-1">
-                {role1.requiredSkills.map((s) => (
+                {role1.requiredSkills.map((s: string) => (
                   <Badge key={s} variant="secondary" className="text-xs">
                     {s}
                   </Badge>
@@ -187,7 +187,7 @@ export default function CompanyCompare() {
             </Select>
             {role2 && (
               <div className="flex flex-wrap gap-1 pt-1">
-                {role2.requiredSkills.map((s) => (
+                {role2.requiredSkills.map((s: string) => (
                   <Badge key={s} variant="secondary" className="text-xs">
                     {s}
                   </Badge>
