@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CheckCircle2, Plus, X, Save } from "lucide-react";
+import ResumeUpload from "./ResumeUpload";
 
 export default function MySkills() {
   const profile = useQuery(api.userProfiles.getMyProfile);
@@ -245,6 +246,9 @@ export default function MySkills() {
           )}
         </CardContent>
       </Card>
+
+      {/* Resume upload via Supabase Storage */}
+      <ResumeUpload />
     </div>
   );
 }
