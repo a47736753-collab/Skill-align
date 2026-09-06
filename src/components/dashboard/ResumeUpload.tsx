@@ -34,6 +34,11 @@ export default function ResumeUpload() {
   const [loading, setLoading] = useState(true);
 
   const listFiles = useCallback(async () => {
+    if (!supabase) {
+      setLoading(false);
+      setFiles([]);
+      return;
+    }
     setLoading(true);
     const { data, error } = await supabase.storage
       .from(BUCKET)
@@ -54,6 +59,11 @@ export default function ResumeUpload() {
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    if (!supabase) {
+      toast.error("File storage is not configured.");
+      return;
+    }
 
     // Validate file type
     const allowed = [
@@ -80,7 +90,7 @@ export default function ResumeUpload() {
 
     if (error) {
       toast.error(error.message.includes("bucket")
-        ? "Storage bucket not found. Create a \"resumes\" bucket in your Supabase dashboard under Storage."
+        ? "Storage bucket not found. Create a \"resumes\" bucket in your storage provider."
         : `Upload failed: ${error.message}`);
     } else {
       toast.success("File uploaded.");
@@ -92,6 +102,10 @@ export default function ResumeUpload() {
   };
 
   const handleDownload = async (fileName: string) => {
+    if (!supabase) {
+      toast.error("File storage is not configured.");
+      return;
+    }
     const { data } = await supabase.storage.from(BUCKET).createSignedUrl(fileName, 60);
     if (data?.signedUrl) {
       window.open(data.signedUrl, "_blank");
@@ -101,6 +115,10 @@ export default function ResumeUpload() {
   };
 
   const handleDelete = async (fileName: string) => {
+    if (!supabase) {
+      toast.error("File storage is not configured.");
+      return;
+    }
     const { error } = await supabase.storage.from(BUCKET).remove([fileName]);
     if (error) {
       toast.error("Delete failed.");
@@ -115,7 +133,7 @@ export default function ResumeUpload() {
       <CardHeader>
         <CardTitle>Resume & Documents</CardTitle>
         <CardDescription>
-          Upload your resume or related documents. Stored securely via Supabase Storage.
+          Upload your resume or related documents.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
