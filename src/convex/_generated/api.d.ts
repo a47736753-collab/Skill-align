@@ -8,22 +8,32 @@
  * @module
  */
 
+import type * as auth from "../auth.js";
+import type * as auth_emailOtp from "../auth/emailOtp.js";
+import type * as compare from "../compare.js";
+import type * as http from "../http.js";
+import type * as seed from "../seed.js";
+import type * as userProfiles from "../userProfiles.js";
+import type * as users from "../users.js";
+
 import type {
   ApiFromModules,
   FilterApi,
   FunctionReference,
 } from "convex/server";
-import type * as auth_config from "../auth.config.js";
-import type * as auth from "../auth.js";
-import type * as compare from "../compare.js";
-import type * as http from "../http.js";
-import type * as schema from "../schema.js";
-import type * as seed from "../seed.js";
-import type * as userProfiles from "../userProfiles.js";
-import type * as users from "../users.js";
+
+declare const fullApi: ApiFromModules<{
+  auth: typeof auth;
+  "auth/emailOtp": typeof auth_emailOtp;
+  compare: typeof compare;
+  http: typeof http;
+  seed: typeof seed;
+  userProfiles: typeof userProfiles;
+  users: typeof users;
+}>;
 
 /**
- * A utility for referencing Convex functions in your app's API.
+ * A utility for referencing Convex functions in your app's public API.
  *
  * Usage:
  * ```js
@@ -31,28 +41,21 @@ import type * as users from "../users.js";
  * ```
  */
 export declare const api: FilterApi<
-  ApiFromModules<{
-    "auth.config": typeof auth_config;
-    auth: typeof auth;
-    compare: typeof compare;
-    http: typeof http;
-    schema: typeof schema;
-    seed: typeof seed;
-    userProfiles: typeof userProfiles;
-    users: typeof users;
-  }>,
+  typeof fullApi,
   FunctionReference<any, "public">
 >;
+
+/**
+ * A utility for referencing Convex functions in your app's internal API.
+ *
+ * Usage:
+ * ```js
+ * const myFunctionReference = internal.myModule.myFunction;
+ * ```
+ */
 export declare const internal: FilterApi<
-  ApiFromModules<{
-    "auth.config": typeof auth_config;
-    auth: typeof auth;
-    compare: typeof compare;
-    http: typeof http;
-    schema: typeof schema;
-    seed: typeof seed;
-    userProfiles: typeof userProfiles;
-    users: typeof users;
-  }>,
+  typeof fullApi,
   FunctionReference<any, "internal">
 >;
+
+export declare const components: {};
